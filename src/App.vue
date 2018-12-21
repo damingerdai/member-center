@@ -7,11 +7,18 @@
     <form>
       <div class="member-row">
         <div class="member-gender member-female">
-          <input type="radio" id="female" name="sex" value="F" ng-model="sex" checked="checked">
+          <input
+            type="radio"
+            id="female"
+            name="sex"
+            value="F"
+            v-model="person.sex"
+            checked="checked"
+          >
           <label for="female">女士</label>
         </div>
         <div class="member-gender">
-          <input type="radio" id="male" name="sex" value="M" ng-model="sex">
+          <input type="radio" id="male" name="sex" value="M" v-model="person.sex">
           <label for="male">先生</label>
         </div>
       </div>
@@ -21,7 +28,14 @@
             姓
             <span class="member-star">*</span>
           </label>
-          <input class="member-input" type="text" name="lastName" style="width: 94.31%" required>
+          <input
+            class="member-input"
+            type="text"
+            name="lastName"
+            v-model="person.lastName"
+            style="width: 94.31%"
+            required
+          >
         </div>
         <div class="member-mame member-mame-first">
           <label class="member-name-label">
@@ -32,6 +46,7 @@
             class="member-input"
             type="text"
             name="firstName"
+            v-model="person.firstName"
             style="margin-right: 0rem; width: 91.55% !important;"
             required
           >
@@ -48,7 +63,7 @@
       </div>
       <div class="member-row member-bor">
         <i class="downConer"></i>
-        <div class="member-input" @click="selectBirthDay"></div>
+        <div class="member-input" @click="selectBirthDay">{{ birthdayLabel }}</div>
       </div>
 
       <div class="member-row">
@@ -107,38 +122,71 @@
       </div>
     </form>
     <div class="member-row member-end">
-      <button class="btn bg-dark">
+      <button class="btn bg-dark" @click="ensure">
         <span class="btn-content">确认并提交</span>
       </button>
     </div>
-    <van-popup v-model="showDatePicker" position="bottom" :overlay="true">
+    <van-popup v-model="show.showDatePicker" position="bottom" :overlay="true">
       <van-datetime-picker
-        v-model="currentDate"
+        v-on:cancel="cancelSelectBirthday"
+        v-on:confirm="confirmSeletBirthday"
+        v-model="datePicker.currentDate"
         type="date"
-        :min-date="minDate"
-        :max-date="maxDate"
+        :min-date="datePicker.minDate"
+        :max-date="datePicker.maxDate"
       />
     </van-popup>
   </div>
 </template>
 
 <script>
+import utils from "./assets/js/utils.js";
 export default {
   name: "app",
   data() {
     return {
-      showDatePicker: false,
-      minHour: 10,
-      maxHour: 20,
-      minDate: new Date(),
-      maxDate: new Date(2019, 10, 1),
-      currentDate: new Date()
+      person: {
+        sex: "M",
+        lastName: "",
+        firstName: "",
+        birthday: ""
+      },
+      show: {
+        showDatePicker: false
+      },
+      datePicker: {
+        minDate: new Date(1900),
+        maxDate: new Date(2019, 10, 1),
+        currentDate: new Date()
+      }
     };
   },
   created() {},
+  computed: {
+    birthdayLabel: function() {
+      if (this.person.birthday) {
+        return utils.formatDate(this.person.birthday, "yyyy-MM-dd");
+      } else {
+        ("");
+      }
+    }
+  },
   methods: {
     selectBirthDay: function() {
-      this.showDatePicker = true;
+      this.show.showDatePicker = true;
+      if (this.person.birthday) {
+        this.datePicker.currentDate = this.person.birthday;
+      }
+    },
+    cancelSelectBirthday: function() {
+      this.show.showDatePicker = false;
+    },
+    confirmSeletBirthday: function() {
+      this.person.birthday = this.datePicker.currentDate;
+      this.show.showDatePicker = false;
+    },
+    ensure: function() {
+      alert(this.person.lastName);
     }
   }
 };
