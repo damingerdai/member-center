@@ -1,15 +1,16 @@
 {
-  "name": "modal",
+  "name": "member-center",
   "version": "1.0.0",
-  "description": "modal demo",
+  "description": "member center demo",
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack",
+    "build": "cross-env NODE_ENV=production webpack --config webpack.config.js",
+    "dev": "webpack",
     "start": "webpack-dev-server --open"
   },
   "keywords": [
-    "modal"
+    "member-center"
   ],
   "author": "arthur",
   "license": "ISC",
