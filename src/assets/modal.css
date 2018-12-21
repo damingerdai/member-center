@@ -1,0 +1,133 @@
+/* 弹窗 (background) */
+.modal {
+    display: none; /* 默认隐藏 */
+    position: fixed;
+    z-index: 1;
+    padding-top: 8.11875rem;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-success {
+    padding-top: 10.15rem;
+}
+
+/* 弹窗内容 */
+.modal-content {
+    position: relative;
+    background-color: #fff;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #fff;
+    width: 87.5%;
+    /*box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);*/
+    -webkit-animation-name: zoomIn;
+    -webkit-animation-duration: 0.4s;
+    animation-name: zoomIn;
+    animation-duration: 0.4s
+}
+
+/*!* 添加动画 *!*/
+/*@-webkit-keyframes animatetop {*/
+    /*from {top:-300px; opacity:0}*/
+    /*to {top:0; opacity:1}*/
+/*}*/
+
+/*@keyframes animatetop {*/
+    /*from {top:-300px; opacity:0}*/
+    /*to {top:0; opacity:1}*/
+/*}*/
+
+/* 关闭按钮 */
+.close {
+    color: #666;
+    float: right;
+    font-size: 2.0rem;
+    font-weight: 100;
+    margin-top: -0.2rem;
+}
+
+.close:hover,
+.close:focus {
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header {
+    /*padding: 2px 16px;*/
+    padding-right: 0.7em;
+    padding-top: .125rem;
+    height: 2.9375rem;
+    /*background-color: #5cb85c;*/
+    /*color: white;*/
+}
+
+.modal-body {
+    /* padding: 2px 16px; */
+    margin-top: -0.2rem;
+}
+
+.modal-body-success-content {
+    font-family: PingFangSC-Regular, Microsoft YaHei !important;
+    font-size: 1.25rem;
+    color: #000000;
+    text-align: center;
+    line-height: 1.71875rem;
+    margin-bottom: 5.87rem;
+    margin-top: 2.8125rem;
+}
+
+.modal-footer {
+    /* padding: 2px 16px; */
+    /*background-color: #5cb85c;*/
+    /*color: white;*/
+    margin-top: 1.25rem;
+    margin-bottom: 2.45rem
+
+}
+
+.row {
+    margin-left: 1.125rem;
+    margin-right: 1.125rem;
+    margin-bottom: 1.25rem;
+}
+
+.row-bor {
+    position: relative;
+}
+
+.input {
+    border: .0625rem solid #D6D6D6 !important;
+    height: 1.5rem !important;
+    display: block !important;
+    margin-top: .5rem !important;
+    padding: .6875rem !important;
+    padding-right: 0 !important;
+    font-family: PingFangSC-Regular, Microsoft YaHei !important;
+    font-size: .875rem !important;
+    color: #1D1D1D !important;
+    line-height: 1.5rem !important;
+    width: 96.3% !important;
+}
+
+.input-error {
+    border-color: rgb(166,0,0) !important;
+}
+
+.btn-modal {
+    font-family: PingFangSC-Regular,  Microsoft YaHei !important;
+    font-size: 1rem;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+body {
+    background: chartreuse;
+}
+
