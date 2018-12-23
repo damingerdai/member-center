@@ -75,11 +75,11 @@
         </div>
       </div>
       <div class="member-row member-bor">
-        <div class="auth-code">
+        <div class="auth-code" @click="getAuthCode">
           <span class="auth-code-right"></span>
-          <span>获取验证码</span>
+          <span>{{ label.authCode}}</span>
         </div>
-        <input class="member-input" name="tellphone" maxlength="11" required>
+        <input class="member-input" name="tellphone" maxlength="11" v-model="person.tellphone" required>
       </div>
 
       <div class="member-row">
@@ -91,7 +91,7 @@
         </div>
       </div>
       <div class="member-row">
-        <input class="member-input" type="number" placeholder="请输入验证码" name="authCode" required>
+        <input class="member-input" type="number" placeholder="请输入验证码" name="authCode" v-model="person.authcode" required>
       </div>
       <div class="member-row">
         <div class="member-birthday-label" style="margin-top:1.15rem">
@@ -101,9 +101,9 @@
           </label>
         </div>
       </div>
-      <div class="member-row member-bor">
+      <div class="member-row member-bor" @click="selectArea">
         <i class="downConer"></i>
-        <div class="member-input"></div>
+        <div class="member-input"> {{areaLabel}}</div>
       </div>
       <div class="member-row">
         <div class="member-birthday-label">
@@ -111,7 +111,7 @@
         </div>
       </div>
       <div class="member-row">
-        <input class="member-input" type="text" name="address">
+        <input class="member-input" type="text" name="address" v-model="person.address.addressName">
       </div>
       <div class="member-row">
         <div class="member-info">
@@ -136,38 +136,91 @@
         :max-date="datePicker.maxDate"
       />
     </van-popup>
+    <van-popup v-model="show.showAreaPicker" position="bottom" :overlay="true">
+      <van-area
+        v-on:cancel="cancelSelectArea"
+        v-on:confirm="confirmSeletArea"
+        :area-list="areaList"
+        :columns-num="3"
+        :title="省市区"
+        :value="person.address.county.code"
+      />
+    </van-popup>
   </div>
 </template>
 
 <script>
 import utils from "./assets/js/utils.js";
+import AreaList from "./assets/js/area.js";
 export default {
   name: "app",
   data() {
     return {
       person: {
-        sex: "M",
+        sex: "F",
         lastName: "",
         firstName: "",
-        birthday: ""
+        birthday: "",
+        tellphone: "",
+        authcode: "",
+        address: {
+          province: {
+            code: "",
+            name: ""
+          },
+          city: {
+            code: "",
+            name: ""
+          },
+          county: {
+            cdoe: "",
+            name: ""
+          },
+          addressName: '',
+        }
       },
       show: {
-        showDatePicker: false
+        showDatePicker: false,
+        showAreaPicker: false
+      },
+      label: {
+        authCode: "获取验证码",
+        authCodeEnable: true
       },
       datePicker: {
         minDate: new Date(1900),
-        maxDate: new Date(2019, 10, 1),
+        maxDate: new Date(),
         currentDate: new Date()
-      }
+      },
+      areaList: AreaList
     };
   },
-  created() {},
+  created() {
+    // if (this.timeOut) {
+    //   clearTimeout(this.timeOut);
+    // }
+  },
   computed: {
     birthdayLabel: function() {
       if (this.person.birthday) {
         return utils.formatDate(this.person.birthday, "yyyy-MM-dd");
       } else {
-        ("");
+        return "";
+      }
+    },
+    areaLabel: function() {
+      if (this.person.address.province.code && this.person.address.city.code && this.person.address.county.code) {
+        return this.person.address.province.name + ' ' + this.person.address.city.name + ' ' + this.person.address.county.name;
+      } else {
+         return (this.person.address.province.code && this.person.address.city.code && this.person.address.county.cdoe);
+      }
+    },
+    timeOut: {
+      set(value) {
+        this.$store.state.timeout.compileTimeout = value;
+      },
+      get() {
+        return this.$store.state.timeout.compileTimeout;
       }
     }
   },
@@ -185,8 +238,42 @@ export default {
       this.person.birthday = this.datePicker.currentDate;
       this.show.showDatePicker = false;
     },
+    selectArea: function() {
+      this.show.showAreaPicker = true;
+    },
+    cancelSelectArea: function() {
+      this.show.showAreaPicker = false;
+    },
+    confirmSeletArea: function(areas) {
+      this.person.address.province.code = areas[0].code,
+      this.person.address.province.name = areas[0].name,
+      this.person.address.city.code = areas[1].code,
+      this.person.address.city.name = areas[1].name,
+      this.person.address.county.code = areas[2].code,
+      this.person.address.county.name = areas[2].name,
+      this.show.showAreaPicker = false;
+    },
+    getAuthCode: function() {
+      if (this.label.authCodeEnable) {
+        this.label.authCodeEnable = false;
+        var _this = this;
+        var countdown = 59;
+        _this.label.authCode = "重新发送 60 s";
+        var interval = setInterval(function() {
+          if (countdown === 0) {
+            _this.label.authCodeEnable = true;
+            _this.label.authCode = "获取验证码";
+            clearInterval(interval);
+          } else {
+            _this.label.authCode = "重新发送" + countdown + "s";
+            countdown--;
+          }
+        }, 1000);
+      }
+    },
+
     ensure: function() {
-      alert(this.person.lastName);
+      alert('完成');
     }
   }
 };
