@@ -1,3 +1,7 @@
+@import './aminate.scss';
+@import './color.scss';
+
+
 /* 弹窗 (background) */
 .modal {
     display: none; /* 默认隐藏 */
@@ -20,10 +24,12 @@
 /* 弹窗内容 */
 .modal-content {
     position: relative;
-    background-color: #fff;
+    background { 
+        color: $pure-white;
+    }
     margin: auto;
     padding: 0;
-    border: 1px solid #fff;
+    border: 1px solid $pure-white;
     width: 87.5%;
     /*box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);*/
     -webkit-animation-name: zoomIn;
@@ -54,7 +60,7 @@
 
 .close:hover,
 .close:focus {
-    color: #fff;
+    color: $pure-white;
     text-decoration: none;
     cursor: pointer;
 }
@@ -76,7 +82,7 @@
 .modal-body-success-content {
     font-family: PingFangSC-Regular, Microsoft YaHei !important;
     font-size: 1.25rem;
-    color: #000000;
+    color: $pure-black;
     text-align: center;
     line-height: 1.71875rem;
     margin-bottom: 5.87rem;
@@ -123,11 +129,7 @@
 .btn-modal {
     font-family: PingFangSC-Regular,  Microsoft YaHei !important;
     font-size: 1rem;
-    color: #FFFFFF;
+    color: $pure-white;
     text-align: center;
-}
-
-body {
-    background: chartreuse;
 }
 
