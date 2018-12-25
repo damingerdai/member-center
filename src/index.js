@@ -3,7 +3,7 @@ import { Popup, DatetimePicker, Area } from 'vant';
 
 import App from './App.vue';
 
-import './styles.css';
+import './styles.scss';
 import 'vant/lib/popup/style';
 import 'vant/lib/datetime-picker/style';
 import 'vant/lib/area/style';
