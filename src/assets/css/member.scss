@@ -1,62 +1,99 @@
+@import './color.scss';
+
 .member-gender-row {
     margin-top: 1.875rem;
 }
 
-
 .member-top {
     position: relative;
-    border-bottom: .125rem solid #ACACAC;
-    margin-left: 1.5rem;
-    margin-right: 1.5rem;
-    margin-top: 0rem;
+    border: {
+        bottom: {
+            width: 0.125rem;
+            style: solid;
+            color: #ACACAC;
+        }
+    }
+    margin: {
+        top: 3.75rem;
+        left: 1.5rem;
+        right: 1.5rem;
+    }
     height: 3.75rem;
 }
 
 .member-header-title {
-    font-family: PingFangSC-Medium, Microsoft YaHei;
-    font-size: 1.375rem;
-    color: #000000;
-    letter-spacing: .0625rem;
-    text-align: center;
-    line-height: 1.75rem;
+    font: {
+        family: PingFangSC-Medium, Microsoft YaHei;
+        size: 1.375rem;
+    }
+    letter: {
+        spacing: 0.0625rem;
+    }
+    text: {
+        align: center;
+    }
+    line: {
+        height: 1.75rem;
+    }
+    color: $pure-black;
 }
 
 .member-header-title-position {
-    margin-top: 2rem
+    margin: {
+        top: 2rem
+    }
 }
 
 .member-row {
-    margin-left: 1.5rem;
-    margin-right: 1.5rem;
+    margin: {
+        left: 1.5rem;
+        right: 1.5rem;
+    }
 }
 
 .member-gender {
-    margin-top: 1.75rem;
+    margin: {
+        top: 1.75rem;
+    }
     display: inline-block;
 }
 
 .member-gender > label {
-    font-family: PingFangSC-Regular, Microsoft YaHei;
-    font-size: .875rem;
-    color: #000000;
-    text-align: left;
-    line-height: 1.25rem;
+    color: $pure-black;
+    font: {
+        family: PingFangSC-Regular, Microsoft YaHei;
+        size: .875rem;
+    }
+    text: {
+        align: left;
+    }
+    line: {
+        height: 1.25rem;
+    }
 }
 
 .member-font {
-    font-family: PingFangSC-Regular, Microsoft YaHei;
-    font-size: .875rem;
-    color: #1D1D1D;
-    text-align: left;
-    line-height: 1.25rem;
+    font: {
+        family: PingFangSC-Regular, Microsoft YaHei;
+        size: 0.875rem
+    }
+    color: $dark;
+    text: {
+        align: left;
+    }
+    line: {
+        height: 1.25rem;
+    }
 }
 
 .member-female {
-    margin-right: 3.2rem;
+    margin: {
+        right: 3.2rem;
+    }
 }
 
 .member-star {
-    color: rgb(255, 1, 1);
+    color: $red-star;
     margin-left: .3125rem;
     font-size: 1rem; 
     vertical-align: middle;
