@@ -35,6 +35,7 @@
             v-model="person.lastName"
             style="width: 94.31%"
             required
+            v-bind:class="{'member-input-error': form.lastName.error}"
           >
         </div>
         <div class="member-mame member-mame-first">
@@ -49,6 +50,7 @@
             v-model="person.firstName"
             style="margin-right: 0rem; width: 91.55% !important;"
             required
+            v-bind:class="{'member-input-error': form.firstName.error}"
           >
         </div>
         <div class="clearfix"></div>
@@ -63,7 +65,7 @@
       </div>
       <div class="member-row member-bor">
         <i class="downConer"></i>
-        <div class="member-input" @click="selectBirthDay">{{ birthdayLabel }}</div>
+        <div class="member-input" @click="selectBirthDay" v-bind:class="{'member-input-error': form.birthday.error}">{{ birthdayLabel }}</div>
       </div>
 
       <div class="member-row">
@@ -79,7 +81,7 @@
           <span class="auth-code-right"></span>
           <span>{{ label.authCode}}</span>
         </div>
-        <input class="member-input" name="tellphone" maxlength="11" v-model="person.tellphone" required>
+        <input class="member-input" name="tellphone" maxlength="11" v-model="person.tellphone" required v-bind:class="{'member-input-error': form.tellphone.error}"/>
       </div>
 
       <div class="member-row">
@@ -91,7 +93,7 @@
         </div>
       </div>
       <div class="member-row">
-        <input class="member-input" type="number" placeholder="请输入验证码" name="authCode" v-model="person.authcode" required>
+        <input class="member-input" type="number" placeholder="请输入验证码" name="authCode" v-model="person.authcode" required v-bind:class="{'member-input-error': form.authCode.error}">
       </div>
       <div class="member-row">
         <div class="member-birthday-label" style="margin-top:1.15rem">
@@ -103,7 +105,7 @@
       </div>
       <div class="member-row member-bor" @click="selectArea">
         <i class="downConer"></i>
-        <div class="member-input"> {{areaLabel}}</div>
+        <div class="member-input" v-bind:class="{'member-input-error': form.address.error}"> {{areaLabel}}</div>
       </div>
       <div class="member-row">
         <div class="member-birthday-label">
@@ -111,7 +113,7 @@
         </div>
       </div>
       <div class="member-row">
-        <input class="member-input" type="text" name="address" v-model="person.address.addressName">
+        <input class="member-input" type="text" name="address" v-model="person.address.addressName" v-bind:class="{'member-input-error': form.addressName.error}"/>
       </div>
       <div class="member-row">
         <div class="member-info">
@@ -177,6 +179,29 @@ export default {
             name: ""
           },
           addressName: '',
+        }
+      },
+      form: {
+        lastName: {
+          error: false,
+        },
+        firstName: {
+          error: false,
+        },
+        birthday: {
+          error: false,
+        },
+        tellphone: {
+          error: false,
+        },
+        authCode: {
+          error: false,
+        },
+        address: {
+          error: false,
+        },
+        addressName: {
+          error: false
         }
       },
       show: {
@@ -271,9 +296,45 @@ export default {
         }, 1000);
       }
     },
-
+    resetForm: function() {
+      this.form.firstName.error = false;
+      this.form.lastName.error = false;
+      this.form.birthday.error = false;
+      this.form.tellphone.error = false;
+      this.form.authCode.error = false;
+      this.form.address.error = false;
+      this.form.addressName.error = false;
+    },
     ensure: function() {
-      alert('完成');
+      this.resetForm();
+      let errorFlag = false;
+      if (!this.person.lastName) {
+        this.form.lastName.error = true;
+        errorFlag = true;
+      }
+      if (!this.person.firstName) {
+        this.form.firstName.error = true;
+        errorFlag = true;
+      }
+      if (!this.person.birthday) {
+        this.form.birthday.error = true;
+        errorFlag = true;
+      }
+      if (!this.person.tellphone || utils.isPoneAvailable(this.person.tellphone)) {
+        this.form.tellphone.error = true;
+        errorFlag = true;
+      }
+      if (this.person.authcode !== '1234') {
+        this.form.authCode.error = true;
+        errorFlag = true;
+      }
+      if (!(this.person.address.province.code && this.person.address.city.code && this.person.address.county.code)) {
+        this.form.address.error = true;
+        errorFlag = true;
+      }
+      if (errorFlag) {
+        document.documentElement.scrollTop = 0;
+      }
     }
   }
 };

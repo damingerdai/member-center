@@ -18,3 +18,11 @@ utils.formatDate = (date, fmt) => {
             fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
     return fmt;
 }
+
+utils.isPoneAvailable = (phone) =>{
+    if (phone) {
+        return /^[1][3,4,5,7,8][0-9]{9}$/.test(phone);
+    } else {
+        return false;
+    }
+}
