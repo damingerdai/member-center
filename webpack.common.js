@@ -1,5 +1,4 @@
 const path = require('path');
-var webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
@@ -11,14 +10,6 @@ module.exports = {
     output: {
         filename: 'assets/[name].bundle.js',
         path: path.resolve(__dirname, 'dist/')
-    },
-    mode: "production",
-    devtool: 'inline-source-map',
-    devServer: {
-        contentBase: './dist'
-    },
-    optimization: {
-        minimize: false
     },
     plugins: [
         new VueLoaderPlugin(),
@@ -85,14 +76,14 @@ module.exports = {
     }
 };
 
-if (process.env.NODE_ENV === 'production') {
-    module.exports.devtool = '#source-map';
-    module.exports.optimization.minimize = true;
-    module.exports.plugins = (module.exports.plugins || []).concat([
-        new webpack.DefinePlugin({
-            'process.env': {
-                NODE_ENV: '"production"'
-            }
-        }),
-    ])
-}
+// if (process.env.NODE_ENV === 'production') {
+//     module.exports.devtool = '#source-map';
+//     module.exports.optimization.minimize = true;
+//     module.exports.plugins = (module.exports.plugins || []).concat([
+//         new webpack.DefinePlugin({
+//             'process.env': {
+//                 NODE_ENV: '"production"'
+//             }
+//         }),
+//     ])
+// }
